@@ -54,7 +54,7 @@
                             <li><a href="{{ url('/login') }}">Логин</a></li>
                             <li><a href="{{ url('/register') }}">Регистрация</a></li>
                         @else
-                            <li><a href="{{ url('/admin/add/post') }}">Добавить пластину</a></li> 
+                            <li><a href="{{ url('/add/post') }}">Добавить пластину</a></li> 
                             <li><a href="{{ url('/admin/edit/post') }}">Редактировать пластины</a></li> 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

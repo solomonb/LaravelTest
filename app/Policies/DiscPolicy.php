@@ -24,7 +24,7 @@ class DiscPolicy
     public function add(User $user){
 
         foreach ($user->roles as $role) {
-            if($role->name =='Admin'){
+            if($role->name =='Guest' || $role->name =='Admin' ){
                 return TRUE;
             }
         }
@@ -36,9 +36,9 @@ class DiscPolicy
 
          foreach ($user->roles as $role) {
             if($role->name =='Admin'){
-                if($user->id == $disc->user_id){
+                //if($user->id == $disc->user_id){
                     return TRUE;
-                }
+               // }
                 
             }
         }

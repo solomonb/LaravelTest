@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">	
+<div class="container">
 	<div class="col-md-8 col-md-offset-2">
 		<div class="">
-			<h2>Редактирование пластины</h2>
+			<h2>Добавление новой пластины</h2>
 		</div>
 
 		@if (count($errors) > 0)
@@ -23,20 +23,20 @@
 			</div>
 		@endif
 
-		<form method="post" action="{{ route ('admin_update_post_p')}}">
+		<form method="post" action="{{ route ('add_post')}}">
 		<input type="hidden" name="_token" value="{{csrf_token()}}">
-		<input type="hidden" name="id" value="{{$disc->id}}">
 			<div class="form-group">
 				<label for="name">Исполнитель</label>
-				<input type="text" class="form-control" id="name" name="name" value="{{ $disc->name}}">
+				<input type="text" class="form-control" id="name" name="name" value="{{ old('name')}}">
 			</div>
 			
 			<div class="form-group">
 				<label for="text">Название альбома</label>
-				<textarea class="form-control" id="text" name="text" rows="3">{{$disc->text}}</textarea>
+				<textarea class="form-control" id="text" name="text" rows="3">{{old('text')}}</textarea>
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
-		</form>
+		</form>	
+		
 	</div>
-</div>
+</div>	
 @endsection

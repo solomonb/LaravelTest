@@ -16,23 +16,29 @@
 });*/
 
 
-Route::get('/', 'DiscController@index');
-Route::get('disc/all', 'DiscController@index');
+Route::get('/', ['uses'=>'DiscController@index', 'as'=>'home']);
 
-Auth::routes();
+
+
+//Auth::routes();
 
 Route::group(['middleware'=>'web'], function (){
-	Route::auth();
+	Route::auth();	
+	
+	Route::match(['get','post'],'/add/post', ['uses'=>'AddPostController@create','as'=>'add_post']);
+	
+	Route::group(['prefix'=>'admin','middleware'=>'auth'], function() {
+	
+		Route::group(['prefix'=>'edit'], function() {
+			Route::get('/post',['uses'=>'Admin\PostController@execute','as'=>'edit_post']);				
+			
+			Route::get('/update/post/{id}', ['uses'=>'Admin\EditPostController@show','as'=>'admin_update_post']);
+			Route::post('/update/post', ['uses'=>'Admin\EditPostController@create','as'=>'admin_update_post_p']);
+
+			Route::get('/delete/post/{id}', ['uses'=>'Admin\DeletePostController@destroy','as'=>'delete_post']);
+		});		
+	});
+
 });
 
-Route::group(['prefix'=>'admin','middleware'=>['web','auth']], function() {
-	
-	Route::get('/add/post', ['uses'=>'Admin\AdminPostController@show','as'=>'admin_add_post']);
-	Route::post('/add/post', ['uses'=>'Admin\AdminPostController@create','as'=>'admin_add_post_p']);
-	
-	Route::get('/edit/update/post/{id}', ['uses'=>'Admin\AdminUpdatePostController@show','as'=>'admin_update_post']);
-	Route::post('/update/post', ['uses'=>'Admin\AdminUpdatePostController@create','as'=>'admin_update_post_p']);
 
-	Route::get('/edit/post', ['uses'=>'Admin\AdminDeletePostController@show','as'=>'admin_edit_post']);
-	Route::get('/edit/delete/post/{id}', ['uses'=>'Admin\AdminDeletePostController@destroy','as'=>'admin_delete_post_d']);
-});

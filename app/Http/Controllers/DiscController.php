@@ -12,7 +12,9 @@ class DiscController extends Controller
 {
     public function index()
 		{				
-			$discs= Disc::Paginate(7);						
-		    return view('disc.all', ['discs'=>$discs]);			    
+			$discs= Disc::Paginate(7);
+			$data = ['title'=>' Музыкальные пластины'];						
+		    return view('disc.all', $data, ['discs'=>$discs]);			    
 		}
+		
 }
